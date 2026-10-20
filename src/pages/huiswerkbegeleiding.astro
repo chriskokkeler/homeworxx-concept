@@ -1,0 +1,86 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHero from '../components/PageHero.astro';
+import PriceGrid from '../components/PriceGrid.astro';
+import Cta from '../components/Cta.astro';
+import { hbPrices, classPrices } from '../data/site';
+import { u } from '../lib/url';
+---
+<Base
+  title="Huiswerkbegeleiding"
+  description="Huiswerkbegeleiding in Zutphen voor alle middelbare schooltypen. Elke schooldag van 14.00 tot 18.00 uur, op een eigen werkplek, met vaste begeleiders."
+  path="huiswerkbegeleiding"
+>
+  <PageHero
+    eyebrow="Huiswerkbegeleiding"
+    title="Samen plannen, samen maken"
+    lead="Elke schooldag van 14.00 tot 18.00 uur werkt je kind aan een eigen tafel, met een begeleider die meekijkt. Zo staat het huiswerk niet meer elke avond tussen jullie in."
+  />
+
+  <section class="section">
+    <div class="container">
+      <div class="sec-head reveal">
+        <h2>Elke leerling krijgt individuele hulp</h2>
+        <p>Bij het plannen én bij het maken van het huiswerk. Individuele aandacht is voor ons een belangrijke voorwaarde voor succes.</p>
+      </div>
+      <div class="grid grid--3">
+        <div class="card reveal">
+          <div class="archtop"><b>1</b></div>
+          <h3>Plannen</h3>
+          <p>We kijken samen wat er deze week moet gebeuren en in welke volgorde. Dat geeft overzicht.</p>
+        </div>
+        <div class="card reveal">
+          <div class="archtop archtop--b"><b>2</b></div>
+          <h3>Maken</h3>
+          <p>Je kind werkt aan een eigen tafel in een rustige ruimte, met een eigen lampje en een goede stoel.</p>
+        </div>
+        <div class="card reveal">
+          <div class="archtop archtop--c"><b>3</b></div>
+          <h3>Terugkijken</h3>
+          <p>Elke vier weken volgt een schriftelijke rapportage aan de leerling, de ouders en eventueel de mentor.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--tint">
+    <div class="container split">
+      <div class="reveal">
+        <h2>Alle middelbare schooltypen</h2>
+        <p class="lead">Van brugklas tot examenjaar, vmbo, havo en vwo. Ook basisschoolleerlingen zijn welkom.</p>
+        <p>Niet zeker of begeleiding of bijles beter past? Doe de keuzehulp, of kom langs voor een vrijblijvende kennismaking.</p>
+        <div class="btn-row">
+          <a class="btn btn--primary" href={u('keuzehulp')}>Doe de keuzehulp</a>
+          <a class="btn btn--ghost" href={u('bijles')}>Meer over bijles</a>
+        </div>
+      </div>
+      <ul class="checks reveal">
+        <li>Een vaste, rustige plek met eigen tafel, stoel en lamp</li>
+        <li>Elke schooldag van 14.00 tot 18.00 uur, soms zijn andere tijden mogelijk</li>
+        <li>Aantal dagen per week naar keuze, minimaal twee</li>
+        <li>Rapportage elke vier weken, ook voor de mentor</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="sec-head reveal">
+        <h2>Wat kost huiswerkbegeleiding?</h2>
+        <p>Je kiest het aantal dagen per week. Het tarief geldt voor vier aaneengesloten weken.</p>
+      </div>
+      <PriceGrid items={hbPrices} />
+      <p class="note reveal">De minimale afnametermijn is vier aaneengesloten weken, met minimaal twee dagen per week.</p>
+
+      <div class="sec-head reveal" style="margin-top: var(--s-8)">
+        <h2>HomeworXX Class</h2>
+        <p>Zonder begeleiding je huiswerk bij ons komen maken. Dezelfde rustige werkplek, tegen een lager tarief.</p>
+      </div>
+      <PriceGrid items={classPrices} />
+    </div>
+  </section>
+
+  <section class="section" style="padding-top: 0">
+    <div class="container"><Cta /></div>
+  </section>
+</Base>

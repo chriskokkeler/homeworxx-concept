@@ -1,0 +1,46 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHero from '../components/PageHero.astro';
+import PriceGrid from '../components/PriceGrid.astro';
+import Cta from '../components/Cta.astro';
+import { hbPrices, classPrices, bijlesPrice, site } from '../data/site';
+---
+<Base
+  title="Tarieven"
+  description="Alle tarieven van HomeworXX in Zutphen: huiswerkbegeleiding vanaf € 210 per vier weken, HomeworXX Class vanaf € 115 en bijles € 45 per uur."
+  path="tarieven"
+>
+  <PageHero
+    eyebrow="Tarieven"
+    title="Heldere prijzen, vooraf"
+    lead="Geen verrassingen. Hieronder staat wat huiswerkbegeleiding, HomeworXX Class en bijles kosten."
+  />
+
+  <section class="section" style="padding-top: var(--s-5)">
+    <div class="container">
+      <div class="sec-head reveal">
+        <h2>Huiswerkbegeleiding</h2>
+        <p>Elke schooldag van 14.00 tot 18.00 uur, soms zijn andere tijden mogelijk. Je kiest het aantal dagen per week, met een minimum van twee. Minimale afname is vier aaneengesloten weken.</p>
+      </div>
+      <PriceGrid items={hbPrices} />
+
+      <div class="sec-head reveal" style="margin-top: var(--s-8)">
+        <h2>HomeworXX Class</h2>
+        <p>Zonder begeleiding je huiswerk bij ons komen maken, op dezelfde rustige werkplek.</p>
+      </div>
+      <PriceGrid items={classPrices} />
+
+      <div class="sec-head reveal" style="margin-top: var(--s-8)">
+        <h2>Bijles</h2>
+        <p>Elke schooldag tussen 9.00 en 18.00 uur, in onderling overleg. Je neemt minimaal vier bijlessen van een uur af.</p>
+      </div>
+      <div class="bigprice reveal"><b>€ {bijlesPrice}</b><span>per uur</span></div>
+
+      <p class="note reveal">Voorwaarden: <a href={site.terms}>algemene voorwaarden (pdf)</a> en <a href={site.termsBijles}>voorwaarden voor bijles (pdf)</a>.</p>
+    </div>
+  </section>
+
+  <section class="section" style="padding-top: 0">
+    <div class="container"><Cta title="Twijfel je wat past?" text="Doe de keuzehulp of maak vrijblijvend een afspraak. Dan bekijken we samen wat bij je kind past." /></div>
+  </section>
+</Base>

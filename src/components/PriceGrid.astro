@@ -1,0 +1,13 @@
+---
+interface Props { items: { days: number; price: number }[]; label?: string }
+const { items, label = 'per 4 aaneengesloten weken' } = Astro.props;
+---
+<div class="prices">
+  {items.map((i) => (
+    <div class="price reveal">
+      <div class="price__days">{i.days} dagen per week</div>
+      <div class="price__eur"><small>€</small>{i.price}</div>
+      <div class="price__per">{label}</div>
+    </div>
+  ))}
+</div>

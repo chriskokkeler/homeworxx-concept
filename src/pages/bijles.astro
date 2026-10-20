@@ -1,0 +1,56 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHero from '../components/PageHero.astro';
+import Cta from '../components/Cta.astro';
+import { bijlesPrice, subjectGroups, site } from '../data/site';
+import { u } from '../lib/url';
+---
+<Base
+  title="Bijles"
+  description="Bijles in Zutphen door ervaren docenten, € 45 per uur. Talen, bètavakken, economie en maatschappijvakken, elke schooldag tussen 9.00 en 18.00 uur."
+  path="bijles"
+>
+  <PageHero
+    eyebrow="Bijles"
+    title="Een docent voor het vak waar het op vastloopt"
+    lead="Bijles is er voor één vak, op een moment dat jullie uitkomt. In overleg elke schooldag tussen 9.00 en 18.00 uur."
+  />
+
+  <section class="section">
+    <div class="container split">
+      <div class="reveal">
+        <div class="bigprice"><b>€ {bijlesPrice}</b><span>per uur</span></div>
+        <p>Je neemt minimaal vier bijlessen van een uur af. Bijlessen worden gegeven door ervaren docenten en door Geertruud zelf.</p>
+        <p><a href={site.termsBijles}>Bekijk de voorwaarden voor bijles (pdf)</a></p>
+      </div>
+      <ul class="checks reveal">
+        <li>Een ervaren docent die het vak kent</li>
+        <li>Individuele aandacht voor elke leerling</li>
+        <li>Elke schooldag tussen 9.00 en 18.00 uur, in overleg</li>
+        <li>Rustige werkplek aan de Berkelkade</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="section section--tint">
+    <div class="container">
+      <div class="sec-head reveal">
+        <h2>Welke vakken geven we?</h2>
+        <p>Staat jouw vak er niet bij? Vraag het gerust, soms is er in overleg meer mogelijk.</p>
+      </div>
+      <div class="subjects">
+        {subjectGroups.map((g) => (
+          <div class="reveal">
+            <h3>{g.title}</h3>
+            <ul>{g.items.map((i) => <li>{i}</li>)}</ul>
+          </div>
+        ))}
+      </div>
+      <p style="margin-top: var(--s-6)"><a class="btn btn--ghost arrow" href={u('team')}>Bekijk wie welk vak geeft</a></p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container"><Cta title="Eerst kennismaken?" text="Vertel waar je kind mee zit. Dan kijken we welke docent past en wanneer de eerste les kan." /></div>
+  </section>
+</Base>

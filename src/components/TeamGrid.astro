@@ -1,0 +1,27 @@
+---
+import { teachers, owner } from '../data/site';
+interface Props { mini?: boolean; level?: 2 | 3 }
+const { mini = false, level = 3 } = Astro.props;
+const Heading = `h${level}` as 'h2' | 'h3';
+const people = [
+  { name: owner.name, initials: owner.initials, role: 'Eigenaar en huiswerkbegeleider', bio: owner.bio, subjects: [] as string[], tone: 'c' as const },
+  ...teachers,
+];
+---
+<div class:list={['team', { 'team--mini': mini }]}>
+  {people.map((p) => (
+    <article class="person reveal">
+      <div class:list={['avatar', `avatar--${p.tone === 'a' ? 'a' : p.tone}`]} aria-hidden="true">{p.initials}</div>
+      <div class="person__body">
+        <Heading>{p.name}</Heading>
+        <p class="role">{p.role}</p>
+        {!mini && <p>{p.bio}</p>}
+        {!mini && p.subjects.length > 0 && (
+          <ul class="chips" aria-label={`Vakken van ${p.name}`}>
+            {p.subjects.map((s) => <li class="chip">{s}</li>)}
+          </ul>
+        )}
+      </div>
+    </article>
+  ))}
+</div>

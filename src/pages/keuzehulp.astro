@@ -1,0 +1,161 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHero from '../components/PageHero.astro';
+import { u } from '../lib/url';
+---
+<Base
+  title="Keuzehulp"
+  description="Beantwoord vier korte vragen en zie direct welke begeleiding bij je kind past en wat die kost."
+  path="keuzehulp"
+>
+  <PageHero
+    eyebrow="Keuzehulp"
+    title="Welke begeleiding past bij je kind?"
+    lead="Vier korte vragen. Daarna zie je direct een advies met de prijs, en kun je een kennismaking plannen."
+  />
+
+  <section class="section" style="padding-top: var(--s-5)">
+    <div class="container">
+      <form class="kh" id="kh" novalidate>
+        <div class="kh__q">
+          <fieldset>
+            <legend><span>1</span>In welke klas zit je kind?</legend>
+            <div class="opts">
+              <input type="radio" name="fase" id="f1" value="g57" /><label for="f1">Groep 5 tot 7</label>
+              <input type="radio" name="fase" id="f2" value="g8" /><label for="f2">Groep 8</label>
+              <input type="radio" name="fase" id="f3" value="ob" checked /><label for="f3">Klas 1 tot 3</label>
+              <input type="radio" name="fase" id="f4" value="bb" /><label for="f4">Bovenbouw of examenjaar</label>
+            </div>
+          </fieldset>
+          <fieldset>
+            <legend><span>2</span>Waar loopt het op vast?</legend>
+            <div class="opts">
+              <input type="radio" name="vraag" id="v1" value="vak" /><label for="v1">Eén vak</label>
+              <input type="radio" name="vraag" id="v2" value="plan" checked /><label for="v2">Plannen en huiswerk afkrijgen</label>
+              <input type="radio" name="vraag" id="v3" value="rust" /><label for="v3">Concentratie en rust</label>
+              <input type="radio" name="vraag" id="v4" value="toets" /><label for="v4">Toetsweek of examen</label>
+            </div>
+          </fieldset>
+          <fieldset>
+            <legend><span>3</span>Hoeveel dagen per week wil je hulp?</legend>
+            <div class="opts">
+              <input type="radio" name="dagen" id="d1" value="2" /><label for="d1">2 dagen</label>
+              <input type="radio" name="dagen" id="d2" value="3" checked /><label for="d2">3 dagen</label>
+              <input type="radio" name="dagen" id="d3" value="4-5" /><label for="d3">4 of 5 dagen</label>
+              <input type="radio" name="dagen" id="d4" value="?" /><label for="d4">Weet ik nog niet</label>
+            </div>
+          </fieldset>
+          <fieldset>
+            <legend><span>4</span>Wat wil je vooral bereiken?</legend>
+            <div class="opts">
+              <input type="radio" name="doel" id="o1" value="cijfers" /><label for="o1">Betere cijfers</label>
+              <input type="radio" name="doel" id="o2" value="thuis" checked /><label for="o2">Meer rust thuis</label>
+              <input type="radio" name="doel" id="o3" value="zelf" /><label for="o3">Zelfstandiger werken</label>
+            </div>
+          </fieldset>
+          <a class="btn btn--primary only-small" href="#advies">Bekijk je advies</a>
+        </div>
+
+        <div class="kh__r" id="advies" aria-live="polite">
+          <span class="tag" id="r-tag">Ons advies</span>
+          <h2 id="r-title"></h2>
+          <p id="r-why"></p>
+          <div class="kh__eur" id="r-price"></div>
+          <ul id="r-list"></ul>
+          <a class="btn btn--sun arrow" id="r-cta" href={u('contact')}>Plan een gratis kennismaking</a>
+        </div>
+      </form>
+    </div>
+  </section>
+</Base>
+
+<script>
+  type A = { fase: string; vraag: string; dagen: string; doel: string };
+  type R = { tag: string; title: string; price: string; sub: string; list: string[]; topic: string };
+
+  const HB: Record<string, number> = { '2': 210, '3': 290, '4': 345, '5': 405 };
+  const CL: Record<string, number> = { '2': 115, '3': 175, '4': 230, '5': 290 };
+  const fmt = (n: number) => `€ ${n}`;
+  const range = (t: Record<string, number>, d: string) =>
+    d === '?' ? `Vanaf ${fmt(t['2'])}` : d === '4-5' ? `${fmt(t['4'])} tot ${fmt(t['5'])}` : fmt(t[d]);
+  const perDays = (d: string) => (d === '?' ? 'per 4 aaneengesloten weken, bij 2 dagen per week' : 'per 4 aaneengesloten weken');
+
+  const faseTxt: Record<string, string> = { g57: 'in groep 5 tot 7', g8: 'in groep 8', ob: 'in klas 1 tot 3', bb: 'in de bovenbouw' };
+  const vraagTxt: Record<string, string> = {
+    vak: 'moeite met één vak',
+    plan: 'moeite met plannen en het huiswerk afkrijgen',
+    rust: 'moeite met concentratie en rust',
+    toets: 'een toetsweek of examen voor de boeg',
+  };
+
+  function advies(a: A): R {
+    if (a.fase === 'g57' || a.fase === 'g8') {
+      return {
+        tag: 'Kennismaking',
+        title: a.fase === 'g8' ? 'Kennismaking over groep 8' : 'Kennismaking voor de basisschool',
+        price: 'In overleg',
+        sub: 'Bijles kost € 45 per uur. Wat bij jouw kind past, bespreken we samen.',
+        list: ['Ook basisschoolleerlingen zijn welkom', 'Een rustige eigen werkplek', 'Individuele aandacht voor elke leerling'],
+        topic: 'Basisschool',
+      };
+    }
+    if (a.vraag === 'vak' || a.vraag === 'toets') {
+      return {
+        tag: 'Ons advies',
+        title: a.vraag === 'toets' ? 'Bijles voor de toetsweek of het examen' : 'Bijles in dat ene vak',
+        price: '€ 45',
+        sub: 'per uur, minimaal 4 bijlessen van een uur',
+        list: ['Een ervaren docent voor het vak', 'Elke schooldag tussen 9.00 en 18.00 uur, in overleg', 'Wil je ook structuur? Combineer met huiswerkbegeleiding'],
+        topic: 'Bijles',
+      };
+    }
+    if (a.vraag === 'rust' && a.doel === 'zelf') {
+      return {
+        tag: 'Ons advies',
+        title: 'HomeworXX Class: zelfstandig werken op een eigen plek',
+        price: range(CL, a.dagen),
+        sub: perDays(a.dagen),
+        list: ['Dezelfde rustige werkplek, zonder begeleiding', 'Eigen tafel, stoel en lampje', 'Begeleiding nodig? Overstappen kan in overleg'],
+        topic: 'HomeworXX Class',
+      };
+    }
+    return {
+      tag: 'Ons advies',
+      title: 'Huiswerkbegeleiding',
+      price: range(HB, a.dagen),
+      sub: perDays(a.dagen),
+      list: ['Samen de week plannen en het huiswerk maken', 'Een eigen werkplek in een rustige ruimte', 'Elke 4 weken een rapportage voor jou en de mentor'],
+      topic: 'Huiswerkbegeleiding',
+    };
+  }
+
+  const form = document.getElementById('kh') as HTMLFormElement;
+  const el = (id: string) => document.getElementById(id) as HTMLElement;
+  const val = (name: string) => (form.querySelector(`input[name="${name}"]:checked`) as HTMLInputElement)?.value ?? '';
+  const dagenTxt: Record<string, string> = { '2': '2 dagen per week', '3': '3 dagen per week', '4-5': '4 of 5 dagen per week' };
+
+  function render() {
+    const a: A = { fase: val('fase'), vraag: val('vraag'), dagen: val('dagen'), doel: val('doel') };
+    const r = advies(a);
+    el('r-tag').textContent = r.tag;
+    el('r-title').textContent = r.title;
+    el('r-why').textContent = `Je kind zit ${faseTxt[a.fase]} en heeft ${vraagTxt[a.vraag]}.`;
+    el('r-price').innerHTML = '';
+    el('r-price').append(document.createTextNode(r.price));
+    const small = document.createElement('small');
+    small.textContent = r.sub;
+    el('r-price').append(small);
+    const ul = el('r-list');
+    ul.innerHTML = '';
+    r.list.forEach((t) => { const li = document.createElement('li'); li.textContent = t; ul.append(li); });
+    const metDagen = r.topic === 'Huiswerkbegeleiding' || r.topic === 'HomeworXX Class';
+    const dagen = !metDagen ? '' : a.dagen === '?' ? ' Het aantal dagen weet ik nog niet.' : ` Ik denk aan ${dagenTxt[a.dagen]}.`;
+    const msg = `Hallo, ik heb de keuzehulp gedaan. Advies: ${r.title}. Mijn kind zit ${faseTxt[a.fase]} en heeft ${vraagTxt[a.vraag]}.${dagen}`;
+    const cta = el('r-cta') as HTMLAnchorElement;
+    const base = cta.href.split('?')[0];
+    cta.href = `${base}?onderwerp=${encodeURIComponent(r.topic)}&bericht=${encodeURIComponent(msg)}`;
+  }
+  form.addEventListener('change', render);
+  form.addEventListener('submit', (e) => e.preventDefault());
+  render();
+</script>

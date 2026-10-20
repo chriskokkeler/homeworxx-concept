@@ -1,0 +1,176 @@
+---
+import Base from '../layouts/Base.astro';
+import Scene from '../components/Scene.astro';
+import Cta from '../components/Cta.astro';
+import TeamGrid from '../components/TeamGrid.astro';
+import { site, quotes } from '../data/site';
+import { u } from '../lib/url';
+
+const schema = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'LocalBusiness',
+    name: site.name,
+    description: 'Huiswerkbegeleiding en bijles in Zutphen.',
+    telephone: '+31683591098',
+    email: site.email,
+    address: {
+      '@type': 'PostalAddress',
+      streetAddress: site.street,
+      postalCode: site.postcode,
+      addressLocality: site.city,
+      addressCountry: 'NL',
+    },
+  },
+];
+---
+<Base
+  title="Huiswerkbegeleiding en bijles in Zutphen"
+  description="Een eigen werkplek, vaste begeleiders en elke vier weken een rapportage. Huiswerkbegeleiding en bijles aan de Berkelkade in Zutphen."
+  path=""
+  schema={schema}
+>
+  <section class="hero">
+    <div class="container hero__grid">
+      <div class="stagger">
+        <h1>Een eigen plek om weer <em>rustig</em> te leren.</h1>
+        <p class="lead">Huiswerkbegeleiding en bijles in Zutphen. Aan de Berkelkade heeft elke leerling een eigen werktafel, een vaste begeleider en elke vier weken een rapportage voor jou. Zo wordt huiswerk weer iets dat gewoon gebeurt.</p>
+        <div class="btn-row">
+          <a class="btn btn--primary arrow" href={u('contact')}>Plan een gratis kennismaking</a>
+          <a class="btn btn--ghost" href={u('tarieven')}>Bekijk de tarieven</a>
+        </div>
+        <ul class="hero__proof">
+          <li>Alle middelbare schooltypen</li>
+          <li>Ook basisschoolleerlingen</li>
+          <li>Prijzen vooraf duidelijk</li>
+        </ul>
+      </div>
+      <Scene />
+    </div>
+  </section>
+
+  <div class="container">
+    <div class="facts reveal">
+      <div><strong>Eigen werkplek</strong><span>Tafel, stoel en lampje voor elke leerling</span></div>
+      <div><strong>Vaste gezichten</strong><span>Geertruud en zeven docenten met een eigen vakgebied</span></div>
+      <div><strong>Elke 4 weken</strong><span>Rapportage aan leerling, ouders en mentor</span></div>
+      <div><strong>Heldere prijzen</strong><span>Bijles € 45 per uur, begeleiding vanaf € 210 per 4 weken</span></div>
+    </div>
+  </div>
+
+  <section class="section">
+    <div class="container">
+      <div class="sec-head reveal">
+        <h2>Waar loopt je kind op vast?</h2>
+        <p>Plannen, één vak of gewoon een rustige plek om te werken. Kies wat het dichtst bij je vraag komt, of doe de keuzehulp.</p>
+      </div>
+      <div class="grid grid--4">
+        <article class="card card--link reveal">
+          <div class="archtop"><b>14 – 18 u</b></div>
+          <h3><a href={u('huiswerkbegeleiding')}>Huiswerkbegeleiding</a></h3>
+          <p>Samen plannen en maken, elke schooldag. Twee tot vijf dagen per week.</p>
+          <span class="go">Lees meer <span aria-hidden="true">→</span></span>
+        </article>
+        <article class="card card--link reveal">
+          <div class="archtop archtop--b"><b>€ 45</b></div>
+          <h3><a href={u('bijles')}>Bijles</a></h3>
+          <p>Een docent voor één vak. Per uur, in een pakket van vier lessen.</p>
+          <span class="go">Lees meer <span aria-hidden="true">→</span></span>
+        </article>
+        <article class="card card--link reveal">
+          <div class="archtop archtop--c"><b>Basis</b></div>
+          <h3><a href={u('basisschool')}>Basisschool</a></h3>
+          <p>Ook de jongste leerlingen zijn welkom, met aandacht voor groep 8.</p>
+          <span class="go">Lees meer <span aria-hidden="true">→</span></span>
+        </article>
+        <article class="card card--link reveal">
+          <div class="archtop archtop--d"><b>4 vragen</b></div>
+          <h3><a href={u('keuzehulp')}>Keuzehulp</a></h3>
+          <p>Beantwoord vier korte vragen en zie direct wat past en wat het kost.</p>
+          <span class="go">Doe de keuzehulp <span aria-hidden="true">→</span></span>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--tint">
+    <div class="container">
+      <div class="sec-head reveal">
+        <h2>Rust, reinheid, regelmaat</h2>
+        <p>Een simpele en oeroude stelling. Een leeromgeving die helder is, werkt beter.</p>
+      </div>
+      <div class="rrr">
+        <div class="reveal">
+          <h3>Rust</h3>
+          <p>Een rustige, heldere ruimte met neutrale materialen en kleuren. Geen drukte, geen afleiding.</p>
+        </div>
+        <div class="reveal">
+          <h3>Reinheid</h3>
+          <p>Een overzichtelijk werklokaal. Elke leerling heeft een eigen tafel, een goede stoel en een eigen lampje, met genoeg licht en frisse lucht.</p>
+        </div>
+        <div class="reveal">
+          <h3>Regelmaat</h3>
+          <p>Een vertrouwd werkpatroon met vaste dagen en vaste tijden. Daar krijgen leerlingen houvast van.</p>
+        </div>
+      </div>
+      <p class="reveal" style="margin-top: var(--s-6)">En op gezette tijden drinken we samen een kop thee, koffie of limonade met een koekje.</p>
+    </div>
+  </section>
+
+  <section class="section section--dark">
+    <div class="container split">
+      <div class="reveal">
+        <h2>Elke vier weken weet je hoe het gaat</h2>
+        <p class="lead">Je hoeft niet te raden of het helpt. Na elke vier weken volgt een korte schriftelijke rapportage.</p>
+        <ul class="checks">
+          <li>Werkhouding van je kind</li>
+          <li>Sterke en zwakke leereigenschappen</li>
+          <li>Aanbevelingen voor verbetering, waar nodig</li>
+        </ul>
+        <p>De rapportage gaat naar de leerling zelf, naar ouders of verzorgers en eventueel naar de mentor.</p>
+      </div>
+      <div class="report reveal" role="img" aria-label="Voorbeeld van de opzet van een rapportage, zonder echte gegevens">
+        <h3>Rapportage <small>Voorbeeld</small></h3>
+        <ul>
+          <li>Werkhouding <span><i class="on"></i><i class="on"></i><i class="on"></i><i></i></span></li>
+          <li>Planning <span><i class="on"></i><i class="on"></i><i></i><i></i></span></li>
+          <li>Zelfstandigheid <span><i class="on"></i><i class="on"></i><i class="on"></i><i></i></span></li>
+        </ul>
+        <p>Opzet ter illustratie. Geen echte leerlinggegevens.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="sec-head reveal">
+        <h2>Weer plezier in school, en rust thuis</h2>
+      </div>
+      <div class="quotes">
+        {quotes.map((q) => (
+          <blockquote class="quote reveal">
+            <p>{q.text}</p>
+            <footer>{q.who}{q.place && <span>, {q.place}</span>}</footer>
+          </blockquote>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--tint">
+    <div class="container">
+      <div class="sec-head reveal">
+        <h2>Een vast team met een eigen vak</h2>
+        <p>Geertruud geeft de huiswerkbegeleiding. Voor bijles werkt HomeworXX met ervaren docenten.</p>
+      </div>
+      <TeamGrid mini />
+      <p style="margin-top: var(--s-6)"><a class="btn btn--ghost arrow" href={u('team')}>Maak kennis met het team</a></p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <Cta />
+    </div>
+  </section>
+</Base>

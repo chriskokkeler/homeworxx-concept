@@ -1,0 +1,55 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHero from '../components/PageHero.astro';
+import Cta from '../components/Cta.astro';
+import { u } from '../lib/url';
+---
+<Base
+  title="Basisschool en groep 8"
+  description="Ook basisschoolleerlingen zijn welkom bij HomeworXX in Zutphen. Rustige plek, individuele aandacht en een kennismaking zonder verplichtingen."
+  path="basisschool"
+>
+  <PageHero
+    eyebrow="Basisschool"
+    title="Ook de jongste leerlingen zijn welkom"
+    lead="HomeworXX begeleidt leerlingen van alle middelbare schooltypen, en ook basisschoolleerlingen. Iedereen is welkom."
+  />
+
+  <section class="section">
+    <div class="container grid grid--2">
+      <div class="reveal">
+        <h2>Dezelfde rust, op het tempo van je kind</h2>
+        <p>Ook jonge leerlingen werken beter in een rustige, heldere ruimte. Daarom geldt voor hen hetzelfde als voor de oudere leerlingen: een eigen plek, individuele aandacht en een vertrouwd werkpatroon.</p>
+        <p>Wat precies past bij je kind en wat dat kost, bespreken we in een vrijblijvende kennismaking.</p>
+        <div class="btn-row">
+          <a class="btn btn--primary arrow" href={u('contact')}>Plan een kennismaking</a>
+        </div>
+      </div>
+      <ul class="checks reveal" style="align-content: start">
+        <li>Een eigen werktafel, stoel en lampje</li>
+        <li>Individuele aandacht voor elke leerling</li>
+        <li>Rapportage aan jou als ouder</li>
+        <li>Een kop thee of limonade met een koekje, op gezette tijden</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="section section--tint">
+    <div class="container grid grid--2">
+      <div class="reveal">
+        <h2>Hulp rond de doorstroomtoets <span class="tag">Idee</span></h2>
+        <p>Groep 8 is een spannend jaar, met de doorstroomtoets en het schooladvies. Veel ouders willen daar graag steun bij.</p>
+        <p>Dit is een idee voor een apart aanbod. Het wordt pas een vast onderdeel van de site als HomeworXX het wil aanbieden. Heb je er nu al een vraag over? Stel hem gerust.</p>
+      </div>
+      <div class="card reveal" style="align-self: start">
+        <h3>Twijfel je wat past?</h3>
+        <p>Met de keuzehulp zie je in vier vragen wat past en wat het kost.</p>
+        <a class="btn btn--ghost arrow" href={u('keuzehulp')}>Doe de keuzehulp</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container"><Cta /></div>
+  </section>
+</Base>

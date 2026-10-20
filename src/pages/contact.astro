@@ -1,0 +1,97 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHero from '../components/PageHero.astro';
+import { site } from '../data/site';
+---
+<Base
+  title="Contact en kennismaking"
+  description="Plan een vrijblijvende kennismaking bij HomeworXX aan de Berkelkade in Zutphen. Bel, mail of gebruik het formulier."
+  path="contact"
+>
+  <PageHero
+    eyebrow="Contact"
+    title="Maak vrijblijvend een afspraak"
+    lead="Vertel kort waar je kind mee zit. Dan bekijken we samen wat past, en kun je de werkplekken zien."
+  />
+
+  <section class="section" style="padding-top: var(--s-5)">
+    <div class="container contact">
+      <div class="info reveal">
+        <div>
+          <h2>Adres</h2>
+          <p>{site.name}<br />{site.street}<br />{site.postcode} {site.city}</p>
+          <p><a href={site.mapsHref}>Route plannen</a></p>
+        </div>
+        <div>
+          <h2>Bellen</h2>
+          <p><a href={site.phoneHref}>{site.phone}</a></p>
+        </div>
+        <div>
+          <h2>Mailen</h2>
+          <p><a href={`mailto:${site.email}`}>{site.email}</a></p>
+        </div>
+        <div>
+          <h2>Tijden</h2>
+          <p>Huiswerkbegeleiding: elke schooldag 14.00 tot 18.00 uur.<br />Bijles: in overleg, elke schooldag 9.00 tot 18.00 uur.</p>
+        </div>
+      </div>
+
+      <form class="form reveal" id="contact-form" novalidate>
+        <p class="demo-note">Dit is een voorbeeldformulier. Bij versturen opent je e-mailprogramma met een kant-en-klaar bericht. Er wordt niets automatisch verstuurd of opgeslagen.</p>
+        <div class="field-row">
+          <div class="field">
+            <label for="naam">Je naam</label>
+            <input id="naam" name="naam" autocomplete="name" required />
+          </div>
+          <div class="field">
+            <label for="telefoon">Telefoon <span class="hint">(optioneel)</span></label>
+            <input id="telefoon" name="telefoon" type="tel" autocomplete="tel" />
+          </div>
+        </div>
+        <div class="field-row">
+          <div class="field">
+            <label for="klas">Klas van je kind</label>
+            <input id="klas" name="klas" placeholder="Bijvoorbeeld klas 2 havo" />
+          </div>
+          <div class="field">
+            <label for="onderwerp">Waarmee kunnen we helpen?</label>
+            <select id="onderwerp" name="onderwerp">
+              <option>Huiswerkbegeleiding</option>
+              <option>Bijles</option>
+              <option>HomeworXX Class</option>
+              <option>Basisschool</option>
+              <option>Weet ik nog niet</option>
+            </select>
+          </div>
+        </div>
+        <div class="field">
+          <label for="bericht">Bericht</label>
+          <textarea id="bericht" name="bericht" placeholder="Waar loopt je kind tegenaan?"></textarea>
+        </div>
+        <p id="form-error" class="hint" role="alert" style="color: #9a3412; margin: 0" hidden>Vul je naam in zodat we weten wie er schrijft.</p>
+        <div><button class="btn btn--primary arrow" type="submit">Open e-mail met bericht</button></div>
+      </form>
+    </div>
+  </section>
+</Base>
+
+<script define:vars={{ to: site.email }}>
+  const form = document.getElementById('contact-form');
+  const err = document.getElementById('form-error');
+  const q = new URLSearchParams(location.search);
+  const sel = form.querySelector('#onderwerp');
+  if (q.get('onderwerp') && [...sel.options].some((o) => o.text === q.get('onderwerp'))) sel.value = q.get('onderwerp');
+  if (q.get('bericht')) form.querySelector('#bericht').value = q.get('bericht');
+  form.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const d = Object.fromEntries(new FormData(form));
+    if (!String(d.naam || '').trim()) { err.hidden = false; form.querySelector('#naam').focus(); return; }
+    err.hidden = true;
+    const lines = [`Naam: ${d.naam}`];
+    if (d.telefoon) lines.push(`Telefoon: ${d.telefoon}`);
+    if (d.klas) lines.push(`Klas: ${d.klas}`);
+    lines.push('', d.bericht || '');
+    const body = lines.join('\n');
+    location.href = `mailto:${to}?subject=${encodeURIComponent('Kennismaking: ' + d.onderwerp)}&body=${encodeURIComponent(body)}`;
+  });
+</script>

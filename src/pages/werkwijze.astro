@@ -1,0 +1,58 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHero from '../components/PageHero.astro';
+import Cta from '../components/Cta.astro';
+---
+<Base
+  title="Werkwijze"
+  description="Rust, reinheid en regelmaat. Zo werkt HomeworXX: een eigen werkplek, individuele aandacht en elke vier weken een rapportage."
+  path="werkwijze"
+>
+  <PageHero
+    eyebrow="Werkwijze"
+    title="Rust, reinheid, regelmaat"
+    lead="Een simpele en oeroude stelling. HomeworXX gaat uit van de eigen kwaliteiten en mogelijkheden van elke leerling."
+  />
+
+  <section class="section" style="padding-top: var(--s-5)">
+    <div class="container">
+      <div class="rrr">
+        <div class="reveal">
+          <h2>Rust</h2>
+          <p>Een rustige, heldere leeromgeving is een goede leeromgeving. We hechten aan een vertrouwd werkpatroon, rust en veiligheid. Materialen en kleuren van de werkruimte zorgen voor een neutrale, rustige sfeer.</p>
+        </div>
+        <div class="reveal">
+          <h2>Reinheid</h2>
+          <p>Een overzichtelijk en helder werklokaal. Een goede persoonlijke werkplek vinden we belangrijk: een ergonomisch verantwoorde stoel en tafel, goede verlichting en voldoende ventilatie.</p>
+        </div>
+        <div class="reveal">
+          <h2>Regelmaat</h2>
+          <p>Vaste dagen, vaste tijden en vaste begeleiders. Dat geeft leerlingen houvast en maakt van huiswerk een gewoonte.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--tint">
+    <div class="container grid grid--2">
+      <div class="reveal">
+        <h2>Een eigen plek voor elke leerling</h2>
+        <p>Iedere leerling heeft een eigen werktafel, stoel en lampje. Elke leerling krijgt individueel hulp bij het plannen en maken van huiswerk.</p>
+        <p>Ook de sociale omgeving vinden we belangrijk. Op gezette tijden drinken we samen een kop thee, koffie of limonade met een koekje.</p>
+      </div>
+      <div class="reveal">
+        <h2>Elke vier weken op papier</h2>
+        <p>Een korte schriftelijke rapportage naar de leerling zelf, de ouders of verzorgers en eventueel de mentor.</p>
+        <ul class="checks">
+          <li>Aandacht voor de werkhouding</li>
+          <li>Sterke en zwakke leereigenschappen</li>
+          <li>Aanbevelingen tot verbetering, waar nodig</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container"><Cta /></div>
+  </section>
+</Base>

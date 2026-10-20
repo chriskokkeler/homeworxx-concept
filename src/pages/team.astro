@@ -1,0 +1,25 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHero from '../components/PageHero.astro';
+import TeamGrid from '../components/TeamGrid.astro';
+import Cta from '../components/Cta.astro';
+---
+<Base
+  title="Team"
+  description="Maak kennis met Geertruud Dorhout en de zeven docenten van HomeworXX in Zutphen, met hun vakken en achtergrond."
+  path="team"
+>
+  <PageHero
+    eyebrow="Team"
+    title="Maak kennis met de mensen achter HomeworXX"
+    lead="Geertruud geeft de huiswerkbegeleiding. Voor bijles werkt HomeworXX met ervaren docenten, elk met een eigen vakgebied."
+  />
+  <section class="section" style="padding-top: var(--s-5)">
+    <div class="container">
+      <TeamGrid level={2} />
+    </div>
+  </section>
+  <section class="section" style="padding-top: 0">
+    <div class="container"><Cta /></div>
+  </section>
+</Base>

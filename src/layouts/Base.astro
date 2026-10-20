@@ -1,0 +1,127 @@
+---
+import '@fontsource-variable/fraunces/index.css';
+import '@fontsource-variable/figtree/index.css';
+import '../styles/global.css';
+import LogoLockup from '../components/LogoLockup.astro';
+import LogoFull from '../components/LogoFull.astro';
+import { site, nav } from '../data/site';
+import { u } from '../lib/url';
+
+interface Props {
+  title: string;
+  description: string;
+  path?: string;
+  schema?: object[];
+}
+const { title, description, path = '', schema = [] } = Astro.props;
+const fullTitle = path === '' ? `${site.name} | ${site.tagline}` : `${title} | ${site.name} Zutphen`;
+const canonical = new URL(u(path), Astro.site).href;
+const here = u(path);
+---
+<!doctype html>
+<html lang="nl">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{fullTitle}</title>
+    <meta name="description" content={description} />
+    <meta name="theme-color" content="#1e4733" />
+    <meta name="robots" content="noindex, nofollow" />
+    <link rel="canonical" href={canonical} />
+    <link rel="icon" href={u('favicon.svg')} type="image/svg+xml" />
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="nl_NL" />
+    <meta property="og:title" content={fullTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <script is:inline>document.documentElement.classList.add('js');</script>
+    {schema.map((s) => <script type="application/ld+json" set:html={JSON.stringify(s)} />)}
+  </head>
+  <body data-page={path || "home"}>
+    <a class="skip" href="#main">Naar de inhoud</a>
+    <div class="concept">
+      Conceptvoorbeeld van <a href="https://chriskokkeler.com">Chris Kokkeler</a>. Dit is geen officiële website van HomeworXX. Het formulier verstuurt niets.
+    </div>
+    <header class="header">
+      <div class="container header__in">
+        <a class="brand" href={u()} aria-label="HomeworXX, naar de startpagina"><LogoLockup /></a>
+        <button class="menu-btn" type="button" aria-expanded="false" aria-controls="nav">Menu</button>
+        <nav class="nav" id="nav" aria-label="Hoofdmenu" data-open="false">
+          <ul>
+            {nav.map((n) => <li><a href={u(n.href)} aria-current={here === u(n.href) ? 'page' : undefined}>{n.label}</a></li>)}
+          </ul>
+          <a class="btn btn--sun" href={u('contact')}>Gratis kennismaking</a>
+        </nav>
+      </div>
+    </header>
+    <main id="main"><slot /></main>
+    <a class="btn btn--sun sticky-cta" href={u('contact')}>Plan een gratis kennismaking</a>
+    <footer class="footer">
+      <div class="container">
+        <div class="footer__grid">
+          <div>
+            <LogoFull />
+            <p>{site.street}<br />{site.postcode} {site.city}</p>
+            <p><a href={site.mapsHref}>Route plannen</a></p>
+          </div>
+          <div>
+            <h3>Contact</h3>
+            <ul>
+              <li><a href={site.phoneHref}>{site.phone}</a></li>
+              <li><a href={`mailto:${site.email}`}>{site.email}</a></li>
+              <li>KvK {site.kvk}</li>
+            </ul>
+          </div>
+          <div>
+            <h3>Op deze site</h3>
+            <ul>
+              {nav.map((n) => <li><a href={u(n.href)}>{n.label}</a></li>)}
+              <li><a href={u('keuzehulp')}>Keuzehulp</a></li>
+              <li><a href={u('veelgestelde-vragen')}>Veelgestelde vragen</a></li>
+              <li><a href={u('contact')}>Contact</a></li>
+              <li><a href={site.terms}>Algemene voorwaarden</a></li>
+            </ul>
+          </div>
+        </div>
+        <div class="footer__fine">
+          <p>Conceptontwerp door <a href="https://chriskokkeler.com">Chris Kokkeler</a>. Teksten, prijzen en citaten komen van de huidige website van HomeworXX. Dit is geen officiële website en wordt niet door zoekmachines geïndexeerd.</p>
+        </div>
+      </div>
+    </footer>
+    <script>
+      const btn = document.querySelector<HTMLButtonElement>('.menu-btn');
+      const nav = document.getElementById('nav');
+      btn?.addEventListener('click', () => {
+        const open = nav?.getAttribute('data-open') !== 'true';
+        nav?.setAttribute('data-open', String(open));
+        btn.setAttribute('aria-expanded', String(open));
+      });
+      nav?.addEventListener('click', (e) => {
+        if ((e.target as HTMLElement).closest('a')) {
+          nav.setAttribute('data-open', 'false');
+          btn?.setAttribute('aria-expanded', 'false');
+        }
+      });
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && nav?.getAttribute('data-open') === 'true') {
+          nav.setAttribute('data-open', 'false');
+          btn?.setAttribute('aria-expanded', 'false');
+          btn?.focus();
+        }
+      });
+      const sticky = document.querySelector('.sticky-cta');
+      const onScroll = () => sticky?.classList.toggle('show', window.scrollY > 520);
+      window.addEventListener('scroll', onScroll, { passive: true });
+      onScroll();
+      const items = document.querySelectorAll('.reveal');
+      if ('IntersectionObserver' in window) {
+        const io = new IntersectionObserver((entries) => {
+          entries.forEach((en) => { if (en.isIntersecting) { en.target.classList.add('in'); io.unobserve(en.target); } });
+        }, { rootMargin: '0px 0px -8% 0px' });
+        items.forEach((el) => io.observe(el));
+      } else {
+        items.forEach((el) => el.classList.add('in'));
+      }
+    </script>
+  </body>
+</html>

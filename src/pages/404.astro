@@ -1,0 +1,16 @@
+---
+import Base from '../layouts/Base.astro';
+import { u } from '../lib/url';
+---
+<Base title="Pagina niet gevonden" description="Deze pagina bestaat niet." path="404">
+  <section class="section">
+    <div class="container" style="max-width: 640px">
+      <h1>Deze pagina bestaat niet</h1>
+      <p class="lead">Misschien is de link verouderd. Ga terug naar de startpagina of bekijk de tarieven.</p>
+      <div class="btn-row">
+        <a class="btn btn--primary" href={u()}>Naar de startpagina</a>
+        <a class="btn btn--ghost" href={u('tarieven')}>Tarieven</a>
+      </div>
+    </div>
+  </section>
+</Base>

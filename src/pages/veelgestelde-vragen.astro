@@ -1,0 +1,41 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHero from '../components/PageHero.astro';
+import Cta from '../components/Cta.astro';
+import { faq } from '../data/site';
+
+const schema = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: faq.map((f) => ({
+      '@type': 'Question',
+      name: f.q,
+      acceptedAnswer: { '@type': 'Answer', text: f.a },
+    })),
+  },
+];
+---
+<Base
+  title="Veelgestelde vragen"
+  description="Antwoord op de meest gestelde vragen over huiswerkbegeleiding en bijles bij HomeworXX in Zutphen: kosten, tijden, rapportage en kennismaking."
+  path="veelgestelde-vragen"
+  schema={schema}
+>
+  <PageHero eyebrow="Veelgestelde vragen" title="Wat ouders vooraf willen weten" />
+  <section class="section" style="padding-top: var(--s-5)">
+    <div class="container">
+      <div class="faq">
+        {faq.map((f) => (
+          <details class="reveal">
+            <summary>{f.q}</summary>
+            <p>{f.a}</p>
+          </details>
+        ))}
+      </div>
+    </div>
+  </section>
+  <section class="section" style="padding-top: 0">
+    <div class="container"><Cta title="Staat je vraag er niet bij?" text="Bel of mail gerust, of maak vrijblijvend een afspraak." /></div>
+  </section>
+</Base>
